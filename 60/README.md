@@ -18,3 +18,11 @@ docker-compose up
 ## Link
 
 - https://github.com/Alfresco/acs-community-packaging/blob/master/docker-alfresco/Dockerfile
+
+## Contnet app
+
+```bash
+docker run \
+    -e "ACSURL=http://localhost:8082/alfresco" \
+    -p 3000:80 alfresco/alfresco-content-app:master-latest
+```

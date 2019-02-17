@@ -2,7 +2,9 @@ version: "3"
 
 services:
     alfresco:
-        image: alfresco/alfresco-content-repository-community:6.1.0-ea
+        image: alfresco/alfresco-content-repository-community:6.0.7-ga
+        depends_on:
+            - postgres
         environment:
             JAVA_OPTS : "
                 -Ddb.driver=org.postgresql.Driver
@@ -18,16 +20,22 @@ services:
                 -Ddeployment.method=DOCKER_COMPOSE
                 -Dcsrf.filter.enabled=false
                 "
+        networks:
+            - internal
         ports:
-            - 8082:8080 #Browser port
+            - 8080:8080 #Browser port
 
     share:
-        image: alfresco/alfresco-share:6.0.c
+        image: alfresco/alfresco-share:6.0.b
+        depends_on:
+            - alfresco
         environment:
             - REPO_HOST=alfresco
             - REPO_PORT=8080
+        networks:
+            - internal
         ports:
-            - 8080:8080
+            - 8083:8080
 
     postgres:
         image: postgres:10.1
@@ -36,11 +44,15 @@ services:
             - POSTGRES_USER=alfresco
             - POSTGRES_DB=alfresco
         command: postgres -c max_connections=300 -c log_min_messages=LOG
-        #ports:
-        #    - 5432:5432
+        networks:
+            - internal
+        ports:
+            - 5432:5432
 
     solr6:
         image: alfresco/alfresco-search-services:1.1.1
+        depends_on:
+            - alfresco
         environment:
             #Solr needs to know how to register itself with Alfresco
             - SOLR_ALFRESCO_HOST=alfresco
@@ -50,18 +62,33 @@ services:
             - SOLR_SOLR_PORT=8983
             #Create the default alfresco and archive cores
             - SOLR_CREATE_ALFRESCO_DEFAULTS=alfresco,archive
+        networks:
+            - internal
         ports:
-            - 8083:8983 #Browser port
+            - 8983:8983 #Browser port
 
-    activemq:
-        image: webcenter/activemq:5.14.3
+    content-app:
+        image: alfresco/alfresco-content-app:master-latest
+        depends_on:
+            - alfresco
+        networks:
+            - internal
         ports:
-            - 8161:8161 # Web Console
-            - 5672:5672 # AMQP
-            - 61616:61616 # OpenWire
-            - 61613:61613 # STOMP
+            - 3001:80
+        # volumes:
+        #     - ./app.config.json:/usr/share/nginx/html/app.config.json
+        #     - ./nginx.conf:/etc/nginx/conf.d/default.conf
 
-    # content-app:
-    #     image: alfresco/alfresco-content-app:master-latest
-    #     ports:
-    #         - 3000:80
+    proxy:
+        image: nginx
+        depends_on:
+            - content-app
+        volumes:
+            - ./nginx.conf:/etc/nginx/conf.d/default.conf
+        networks:
+            - internal
+        ports:
+            - 3000:80
+
+networks:
+    internal:
