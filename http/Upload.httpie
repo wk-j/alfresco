@@ -1,0 +1,11 @@
+
+http --form --auth admin:admin
+  POST http://localhost:8082/alfresco/api/-default-/public/alfresco/versions/1/nodes/-root-/children
+  fileData@./README.md
+  relativePath="x/y/z"
+  autoRename=false
+  overwrite=true
+  cm\\:title="Title BC"
+  cm\\:description="Description BB"
+  cm\\:author=HTTPie
+  name="NName.md"

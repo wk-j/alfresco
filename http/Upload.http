@@ -1,0 +1,30 @@
+POST http://localhost:8082/alfresco/api/-default-/public/alfresco/versions/1/nodes/-root-/children
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+Authorization: Basic admin admin
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="relativePath"
+
+x/y/z
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="overwrite"
+
+true
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="cm:title"
+
+Title REST
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="cm:description"
+
+Description REST
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="autoRename"
+
+false
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="fileData"; filename="REST.md"
+Content-Type: text/plain
+
+< README.md
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
