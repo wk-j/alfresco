@@ -1,0 +1,7 @@
+curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' x -d '{
+  "id": "123",
+  "displayName": "string",
+  "parentIds": [
+  ]
+}' 'http://admin:admin@localhost:8082/alfresco/api/-default-/public/alfresco/versions/1/groups'
+
