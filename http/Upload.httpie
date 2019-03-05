@@ -5,22 +5,22 @@ http --form --auth admin:admin
   relativePath="x/y/z"
   autoRename=false
   overwrite=true
-  cm\\:title="Title TT"
-  cm\\:description="Description TT"
-  cm\\:author=HTTPie
-  comment=Comment
-  name="Name.md"
+  cm\\:title="File title"
+  cm\\:description="File description"
+  cm\\:author="admin"
+  comment="Upload with HTTPie"
+  name="README.md"
 
 // Alfresco 5.2
 http --form --auth admin:admin
   POST http://localhost:8090/alfresco/api/-default-/public/alfresco/versions/1/nodes/-root-/children
-  fileData@./README.md
+  fileData@./resource/boi.pdf
   relativePath="x/y/z"
-  autoRename=false
   overwrite=true
-  majorVersion=true
-  cm\\:title="Title"
-  cm\\:description="Description"
-  cm\\:author="HTTPie"
-  comment="Comment"
-  name="README.md"
+  autoRename=false
+  majorVersion=false
+  cm\\:title="THAILAND’SBIOECONOMYINDUSTRY"
+  cm\\:description="NDUSTRY OVERVIEW"
+  cm\\:author="admin"
+  comment="Upload with HTTPie"
+  name="THAILANDs-BIOECONOMY-INDUSTRY.pdf"
