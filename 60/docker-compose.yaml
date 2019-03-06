@@ -60,8 +60,3 @@ services:
             - 5672:5672 # AMQP
             - 61616:61616 # OpenWire
             - 61613:61613 # STOMP
-
-    # content-app:
-    #     image: alfresco/alfresco-content-app:master-latest
-    #     ports:
-    #         - 3000:80
